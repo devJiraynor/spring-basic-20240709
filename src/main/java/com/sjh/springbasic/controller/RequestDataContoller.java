@@ -41,4 +41,26 @@ public class RequestDataContoller {
         return "읽은 경로 변수 : " + var + ", " + str;
     }
 
+    // ! 주의
+    // 경로 변수를 사용하여 URL 패턴을 작성할 때
+    // 겹치는 패턴이 존재하는지 잘 확인해야함
+    @GetMapping("/path-variable/other")
+    public String otherPathVariable() {
+        return "other 메서드 호출";
+    }
+
+    @GetMapping("/path-variable/{var}/another")
+    public String anotherPathVariable1 (
+        @PathVariable("var") String var
+    ) {
+        return "another1";
+    }
+
+    @GetMapping("/path-variable/another/{var}")
+    public String anotherPathVariable2 (
+        @PathVariable("var") String var
+    ) {
+        return "another2";
+    }
+
 }
