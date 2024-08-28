@@ -54,6 +54,7 @@ public class SampleServiceImplement implements SampleService {
 
         // 2. repository를 이용하여 Entity에 해당하는 레코드 삭제
         //    - 해당하는 레코드가 존재하지 않을때 수행 불가능
+        
         SampleTable1Entity entity = sampleTable1Repository.findById(sampleId).get();
         sampleTable1Repository.delete(entity);
 
