@@ -1,12 +1,16 @@
 package com.sjh.springbasic.service.implement;
 
+import java.util.List;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.sjh.springbasic.dto.PostSample1RequestDto;
 import com.sjh.springbasic.entity.SampleTable1Entity;
+import com.sjh.springbasic.entity.SampleUserEntity;
 import com.sjh.springbasic.repository.SampleTable1Repository;
+import com.sjh.springbasic.repository.SampleUserRepository;
 import com.sjh.springbasic.service.SampleService;
 
 import lombok.RequiredArgsConstructor;
@@ -15,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SampleServiceImplement implements SampleService {
 
+    private final SampleUserRepository sampleUserRepository;
     private final SampleTable1Repository sampleTable1Repository;
 
     @Override
@@ -54,12 +59,22 @@ public class SampleServiceImplement implements SampleService {
 
         // 2. repository를 이용하여 Entity에 해당하는 레코드 삭제
         //    - 해당하는 레코드가 존재하지 않을때 수행 불가능
-        
+
         SampleTable1Entity entity = sampleTable1Repository.findById(sampleId).get();
         sampleTable1Repository.delete(entity);
 
         return ResponseEntity.status(HttpStatus.OK).body("성공");
 
     }
+
+    @Override
+    public ResponseEntity<String> queryString() {
+
+        List<SampleUserEntity> sampleUserEntities = sampleUserRepository.getJpql2("홍길동", "부산광역시");
+        
+        return ResponseEntity.status(HttpStatus.OK).body(sampleUserEntities.toString());
+    }
+
+    
     
 }
