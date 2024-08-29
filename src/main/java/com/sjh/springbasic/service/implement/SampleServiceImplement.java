@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.sjh.springbasic.dto.PostSample1RequestDto;
 import com.sjh.springbasic.entity.SampleTable1Entity;
 import com.sjh.springbasic.entity.SampleUserEntity;
+import com.sjh.springbasic.provider.JwtProvider;
 import com.sjh.springbasic.repository.SampleTable1Repository;
 import com.sjh.springbasic.repository.SampleUserRepository;
 import com.sjh.springbasic.service.SampleService;
@@ -19,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SampleServiceImplement implements SampleService {
 
+    private final JwtProvider jwtProvider;
     private final SampleUserRepository sampleUserRepository;
     private final SampleTable1Repository sampleTable1Repository;
 
@@ -75,6 +77,9 @@ public class SampleServiceImplement implements SampleService {
         return ResponseEntity.status(HttpStatus.OK).body(sampleUserEntities.toString());
     }
 
-    
-    
+    @Override
+    public String getJwt(String name) {
+        String jwt = jwtProvider.create(name);
+        return jwt;
+    }
 }
